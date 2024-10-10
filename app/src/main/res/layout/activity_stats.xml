@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/food_background"
+    tools:context=".StatsActivity">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        style="@style/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:layout_width="431dp"
+        android:layout_height="790dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <FrameLayout
+            android:layout_width="383dp"
+            android:layout_height="206dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/rounded_shape_1"
+            android:elevation="10dp">
+
+            <TextView
+                style="@style/textProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Walking"
+                android:textColor="#6BECF5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/circle_stroke" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="4.6km" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBarWalking"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="292dp"
+                android:layout_height="19dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:max="100"
+                android:progress="50"
+                android:progressTint="#6BECF5" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="383dp"
+            android:layout_height="206dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/rounded_shape_1"
+            android:elevation="10dp">
+
+            <TextView
+                style="@style/textProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food"
+                android:textColor="#5E70DB" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical|left"
+                android:layout_margin="10dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/circle_stroke" />
+
+            <ProgressBar
+                android:id="@+id/progressBarFood"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="292dp"
+                android:layout_height="19dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:max="100"
+                android:progress="50"
+                android:progressTint="#5E70DB" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="383dp"
+            android:layout_height="206dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/rounded_shape_1"
+            android:elevation="10dp">
+
+            <TextView
+                style="@style/textProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Activities"
+                android:textColor="#CA57E3" />
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical|left"
+                android:layout_margin="10dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/circle_stroke" />
+
+            <ProgressBar
+                android:id="@+id/progressBarActivities"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="292dp"
+                android:layout_height="19dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:max="100"
+                android:progress="50"
+                android:progressTint="#CA57E3" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="383dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="70dp"
+        android:backgroundTint="@color/white"
+        android:text="Total calories"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

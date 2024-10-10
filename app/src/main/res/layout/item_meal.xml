@@ -1,0 +1,37 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="400dp"
+    android:layout_height="183dp"
+    android:padding="16dp"
+    android:layout_marginBottom="15dp"
+    android:background="@drawable/rounded_shape_1"
+    android:elevation="10dp">
+
+    <TextView
+        android:id="@+id/mealNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textMealItem"
+        android:layout_gravity="center|top"
+        android:text="name"
+        android:layout_marginBottom="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/ListOfFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mealNameTextView"/>
+
+    <TextView
+        android:id="@+id/caloriesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textMealItem"
+        android:layout_gravity="left|bottom"
+        android:text="calories"
+        android:layout_marginTop="8dp"/>
+</FrameLayout>
