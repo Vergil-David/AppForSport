@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.gms)
 }
 
 android {
@@ -32,6 +33,10 @@ android {
 }
 
 dependencies {
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore) // this is public that is dangerous
+    implementation(libs.firebase.auth)
 
     implementation(libs.appcompat)
     implementation(libs.material)

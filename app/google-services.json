@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "924754329704",
+    "project_id": "trainingapp-7f481",
+    "storage_bucket": "trainingapp-7f481.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924754329704:android:5a5214841e3266192afbdd",
+        "android_client_info": {
+          "package_name": "com.example.befit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwo0HTW8zx0MANOcoif7uj-zuXP0fRGTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
