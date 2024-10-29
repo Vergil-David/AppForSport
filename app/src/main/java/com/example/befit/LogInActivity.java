@@ -22,6 +22,18 @@ public class LogInActivity extends Activity{
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance();
 
+        // Перевірка, чи користувач авторизований
+        if (auth.getCurrentUser() != null) {
+            Log.d("My", "Email: " + auth.getCurrentUser().getEmail());
+        } else {
+            Log.d("My", "Current user is null");
+        }
+
+        if (auth.getCurrentUser() != null) {  // Перевірка на null
+            Log.d("My", "Already signed out!");
+            startActivity(new Intent(LogInActivity.this, SettingActivity.class));
+            return;
+        }
         EditText Email = (EditText) findViewById(R.id.Email);
         EditText Password = (EditText) findViewById(R.id.Password);
 
@@ -51,15 +63,17 @@ public class LogInActivity extends Activity{
             Log.d("My", "Email or password is null!");
             return;
         }
-
+        Log.d("My", "wtf is that!");
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Log.d("My", "Sign In successful!");
-                        // Перехід на основну активність або наступну
+                        startActivity(new Intent(LogInActivity.this, SettingActivity.class));
+                        finish();
                     } else {
-                        Log.d("My", "Sign In failure!");
+                        Log.d("My", "Sign In failure! " + task.getException().getMessage());
                     }
+                    Log.d("My", email + " " + password);
                 });
     }
 }

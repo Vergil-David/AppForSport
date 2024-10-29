@@ -41,8 +41,8 @@
         android:id="@+id/Email"
         style="@style/EditTextStyle"
         android:layout_below="@id/to_login_title"
-        android:layout_marginTop="46dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
         android:hint="Email" />
 
     <EditText
