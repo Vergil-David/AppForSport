@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BeFit</string>
+    <string name="Daily_activity">Daily activity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="at_home">At Home</string>
+    <string name="in_the_gym">In the gym</string>
+    <string name="outdoor">Outdoor</string>
+    <string name="yoga">Yoga</string>
+    <string name="coming_soon">Coming soon</string>
 </resources>

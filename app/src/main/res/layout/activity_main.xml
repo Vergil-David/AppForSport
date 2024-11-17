@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_background"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <View
         android:id="@+id/colorRectangle"
@@ -22,9 +22,10 @@
         app:layout_constraintHeight_percent="0.6"/>
 
     <FrameLayout
-        android:id="@+id/activityButton"
-        android:layout_width="373dp"
-        android:layout_height="363dp"
+        android:id="@+id/btnActivity"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="340dp"
         android:layout_marginTop="150dp"
         android:background="@drawable/rounded_shape_1"
         android:elevation="10dp"
@@ -37,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="21dp"
-            android:text="Daily activity"
-            android:textColor="#6F737E"
+            android:text="@string/Daily_activity"
+            android:textColor="@color/greyTextColor"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -115,9 +116,10 @@
 
 
     <android.widget.Button
+        android:id="@+id/btnHelpful"
         android:layout_width="340dp"
         android:layout_height="70dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_background_2"
         android:contentDescription="HelpFul"
         android:text="helpful"
@@ -126,7 +128,7 @@
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activityButton" />
+        app:layout_constraintTop_toBottomOf="@+id/btnActivity" />
 
     <LinearLayout
         android:id="@+id/buttonLayout"

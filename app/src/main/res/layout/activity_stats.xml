@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/food_background"
-    tools:context=".StatsActivity">
+    tools:context=".activities.StatsActivity">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -15,18 +15,20 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
+        android:id="@+id/list"
         android:layout_width="431dp"
         android:layout_height="790dp"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingHorizontal="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/btnBack">
 
 
         <FrameLayout
             android:layout_width="383dp"
             android:layout_height="206dp"
-            android:layout_marginTop="80dp"
             android:background="@drawable/rounded_shape_1"
             android:elevation="10dp">
 
@@ -134,21 +136,21 @@
                 android:progress="50"
                 android:progressTint="#CA57E3" />
         </FrameLayout>
-
     </LinearLayout>
 
     <Button
         android:id="@+id/button"
         android:layout_width="383dp"
         android:layout_height="67dp"
-        android:layout_marginBottom="70dp"
         android:backgroundTint="@color/white"
         android:text="Total calories"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/list"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

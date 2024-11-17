@@ -6,6 +6,6 @@
   <path
       android:pathData="M0,21a21.5,21 0,1 0,43 0a21.5,21 0,1 0,-43 0z"
       android:fillColor="#FFFFFF"/>
-<!--      android:fillColor="url(#pattern0_72_1510)"/>-->
+  <!--      android:fillColor="url(#pattern0_72_1510)"/>-->
 
 </vector>
