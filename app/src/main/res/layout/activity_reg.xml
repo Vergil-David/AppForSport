@@ -6,6 +6,16 @@
     android:background="@drawable/settings_background"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="181dp"
+        android:layout_marginTop="541dp"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/singup_title"
         android:layout_width="wrap_content"
@@ -39,44 +49,54 @@
     <EditText
         android:id="@+id/Email"
         style="@style/EditTextStyle"
-        android:layout_height="60dp"
+        android:layout_height="51dp"
         android:layout_below="@id/to_login_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp"
-        android:hint="Email" />
+        android:hint="Email"
+        android:padding="1dp"
+        android:paddingStart="20dp" />
 
     <EditText
         android:id="@+id/Password"
         style="@style/EditTextStyle"
-        android:layout_height="60dp"
+        android:layout_height="51dp"
         android:layout_below="@id/Email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:hint="Password" />
+        android:hint="Password"
+        android:padding="1dp"
+        android:paddingStart="20dp" />
 
     <EditText
         android:id="@+id/Name"
         style="@style/EditTextStyle"
         android:layout_below="@id/Password"
-        android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:hint="Name" />
+        android:layout_marginTop="16dp"
+        android:hint="Name"
+        android:padding="1dp"
+        android:paddingStart="20dp" />
 
     <EditText
         android:id="@+id/Year"
         style="@style/EditTextStyle"
         android:layout_below="@id/Name"
-        android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:hint="Year" />
+        android:layout_marginTop="16dp"
+        android:hint="Year"
+        android:padding="1dp"
+        android:paddingStart="20dp" />
 
     <EditText
         android:id="@+id/Weight"
         style="@style/EditTextStyle"
         android:layout_below="@id/Year"
-        android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:hint="Weight" />
+        android:layout_marginTop="16dp"
+        android:hint="Weight"
+        android:padding="1dp"
+        android:paddingStart="20dp" />
 
     <!-- Checkbox Remember Me -->
     <CheckBox

@@ -2,6 +2,7 @@ package com.example.befit.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
             finish(); // Close current activity
             return;
         }
+
+        Log.d("My", "User email: " + auth.getCurrentUser().getEmail());
+        Log.d("My", "User ID: " + auth.getUid());
 
         binding.btnActivity.setOnClickListener(v -> {
             startActivity(new Intent(this, StatsActivity.class));
