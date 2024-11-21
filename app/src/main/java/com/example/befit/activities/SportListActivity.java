@@ -1,5 +1,6 @@
 package com.example.befit.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,7 +12,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.befit.R;
 import com.example.befit.adapters.SportActivityAdapter;
 import com.example.befit.databinding.ActivitySportListBinding;
+import com.example.befit.model.PostItem;
+import com.example.befit.model.SportActivity;
 import com.example.befit.model.SportType;
+
+import java.io.Serializable;
 
 public class SportListActivity extends AppCompatActivity {
     ActivitySportListBinding binding;
@@ -30,5 +35,12 @@ public class SportListActivity extends AppCompatActivity {
 
         binding.imageView.setImageResource(sportType.getImageBackGroudId());
         binding.activityList.setAdapter(adapter);
+
+        binding.activityList.setOnItemClickListener(((parent, view, position, id) -> {
+            Intent intent = new Intent(this, sportInfoActivity.class);
+            SportActivity clickedActivity = sportType.getActivities().get(position);
+            intent.putExtra("sportActivity" , (Serializable) clickedActivity);
+            startActivity(intent);
+        }));
     }
 }

@@ -15,7 +15,9 @@
         android:theme="@style/Theme.BeFit"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activities.sportInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.InfoPostActivity"
             android:exported="false" />
@@ -28,7 +30,6 @@
         <activity
             android:name=".activities.SportTypeActivity"
             android:exported="false" />
-
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
@@ -38,7 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activities.FoodListActivity" />
         <activity android:name=".activities.StatsActivity" />
         <activity android:name=".activities.SettingActivity" />

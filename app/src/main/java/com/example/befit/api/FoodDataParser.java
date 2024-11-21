@@ -32,7 +32,8 @@ public class FoodDataParser {
             String brandId = isBranded ? foodObject.optString("nix_item_id", "unknown") : "unknown";
             String name = foodObject.getString(jsonFoodNameTag);
             String photoUrl = foodObject.getJSONObject("photo").getString("thumb");
-            if(!photoUrl.equals(NO_PHOTO_URL))
+            int servingQty = foodObject.optInt("serving_qty",0);
+            if(!photoUrl.equals(NO_PHOTO_URL) && servingQty >= 1)
                 commonFoodItems.add(new FoodSearchDesc(name, photoUrl,brandId));
         }
         return commonFoodItems;

@@ -43,7 +43,6 @@ public class AddFoodDescDialogFragment extends BaseDialogFragment {
 
         Button increaseButton = dialogView.findViewById(R.id.btnIncrease);
         Button reduseButton = dialogView.findViewById(R.id.btnReduse);
-        Button closeButton = dialogView.findViewById(R.id.closeButton);
         Button addButton = dialogView.findViewById(R.id.addButton);
 
         foodName.setText(foodManager.getName());
@@ -66,9 +65,6 @@ public class AddFoodDescDialogFragment extends BaseDialogFragment {
         reduseButton.setOnClickListener(v -> {
             foodManager.reduceQty();
             updateDialogValues(dialogView);
-        });
-        closeButton.setOnClickListener(v -> {
-            dismiss();
         });
         addButton.setOnClickListener( v-> {
             if(listener != null) {

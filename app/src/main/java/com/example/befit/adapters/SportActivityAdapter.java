@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.bumptech.glide.Glide;
 import com.example.befit.R;
 import com.example.befit.model.SportActivity;
 
@@ -32,7 +33,7 @@ public class SportActivityAdapter extends ArrayAdapter<SportActivity> {
        ImageView image = view.findViewById(R.id.imageView);
        TextView name = view.findViewById(R.id.textName);
 
-       image.setImageResource(item.getImageId());
+       Glide.with(view).asBitmap().load(item.getImageUrl()).into(image);
        name.setText(item.getName());
 
        return view;

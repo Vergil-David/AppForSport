@@ -15,15 +15,16 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class FoodService {
+public class FoodService implements IFoodService {
     private FoodApiClient client;
     private FoodDataParser parser;
     public FoodService() {
         this.client = new FoodApiClient();
         this.parser = new FoodDataParser();
     }
+    @Override
     public void fetchFoodList(String query, Consumer<List<FoodSearchDesc>> onCommonSuccess
-            ,Consumer<List<FoodSearchDesc>> onBrandedSuccess, Consumer<String> onError) {
+            , Consumer<List<FoodSearchDesc>> onBrandedSuccess, Consumer<String> onError) {
 
         client.getClient().newCall(client.buildSearchRequest(query)).enqueue(new Callback() {
             @Override
@@ -53,6 +54,7 @@ public class FoodService {
             }
         });
     }
+    @Override
     public void fetchCommonFoodDetails(String query, Consumer<foodManager> onSuccess, Consumer<String> onError){
 
         client.getClient().newCall(client.buildDetailsRequest(query)).enqueue(new Callback() {
@@ -83,6 +85,7 @@ public class FoodService {
         });
     }
 
+    @Override
     public void fetchBrandedFoodDetails(String nixItemId, Consumer<foodManager> onSuccess, Consumer<String> onError) {
         client.getClient().newCall(client.buildBrandedItemRequest(nixItemId)).enqueue(new Callback() {
             @Override
@@ -97,6 +100,7 @@ public class FoodService {
                         JSONObject object = new JSONObject(response.body().string());
                         JSONArray foodsArray = object.getJSONArray("foods");
                         JSONObject foodObject = foodsArray.getJSONObject(0);
+                        Log.d("foodObject",foodObject.toString());
                         foodManager foodManager = parser.parseBrandedFoodDetails(foodObject);
                         onSuccess.accept(foodManager);
 

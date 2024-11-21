@@ -13,9 +13,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="246dp"
-        android:layout_height="259dp"
-        android:layout_marginHorizontal="15dp"
+        android:layout_width="269dp"
+        android:layout_height="269dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="100dp"
         android:src="@drawable/at_home_image"
         app:layout_constraintBottom_toTopOf="@+id/textInfo"

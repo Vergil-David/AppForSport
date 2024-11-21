@@ -49,6 +49,7 @@ public class PostsActivity extends AppCompatActivity {
             PostItem resultPost = posts.get(position);
             intent.putExtra("post" , (Serializable) resultPost);
             startActivity(intent);
+
         }));
     }
 
