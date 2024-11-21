@@ -96,9 +96,16 @@ public class LogInActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     hideLoading();
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "Sign in successful");
-                        navigateToMain();
-                        finish();
+                        // Перевірка, чи підтверджена електронна адреса
+                        if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
+                            Log.d(TAG, "Sign in successful and email verified");
+                            navigateToMain();
+                            finish();
+                        } else {
+                            Log.w(TAG, "Email not verified");
+                            Toast.makeText(this, "Please verify your email address before signing in", Toast.LENGTH_LONG).show();
+                            auth.signOut(); // Вийти з акаунта, якщо не підтверджено
+                        }
                     } else {
                         handleSignInError(task.getException());
                     }

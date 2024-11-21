@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RegActivity extends AppCompatActivity {
     private static final String TAG = "RegActivity";
@@ -159,13 +160,31 @@ public class RegActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        saveUserDataToFirestore(email, name, age, weight);
+                        // Надсилаємо лист для підтвердження електронної пошти
+                        Objects.requireNonNull(auth.getCurrentUser()).sendEmailVerification()
+                                .addOnCompleteListener(verificationTask -> {
+                                    if (verificationTask.isSuccessful()) {
+                                        showToast("Verification email sent. Please check your inbox.");
+                                        hideLoading();
+
+                                        // Розриваємо сеанс і пропонуємо увійти після підтвердження
+                                        FirebaseAuth.getInstance().signOut();
+
+                                        // Переходимо на екран входу
+                                        navigateToLogin();
+                                    } else {
+                                        hideLoading();
+                                        showToast("Failed to send verification email: " +
+                                                verificationTask.getException().getMessage());
+                                    }
+                                });
                     } else {
                         hideLoading();
                         handleRegistrationError(task.getException());
                     }
                 });
     }
+
 
     private void saveUserDataToFirestore(String email, String name, String age, String weight) {
         String userId = auth.getCurrentUser().getUid();
