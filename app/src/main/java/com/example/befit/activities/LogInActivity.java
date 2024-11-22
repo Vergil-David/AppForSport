@@ -1,81 +1,144 @@
 package com.example.befit.activities;
 
+import android.text.TextUtils;
 import android.util.Log;
-import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import android.content.Intent;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.befit.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
-public class LogInActivity extends Activity{
+public class LogInActivity extends AppCompatActivity {
+    private static final String TAG = "LogInActivity";
 
     private FirebaseAuth auth;
+    private EditText emailEdit;
+    private EditText passwordEdit;
+    private MaterialButton signInButton;
+    private MaterialButton goToSignUpButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Використання правильного файлу розмітки
-        setContentView(R.layout.activity_login); // Змінити на activity_login
+        setContentView(R.layout.activity_login);
 
-        // Initialize Firebase Auth
-        auth = FirebaseAuth.getInstance();
-
-        // Перевірка, чи користувач авторизований
-        if (auth.getCurrentUser() != null) {
-            Log.d("My", "Email: " + auth.getCurrentUser().getEmail());
-        } else {
-            Log.d("My", "Current user is null");
-        }
-
-        if (auth.getCurrentUser() != null) {  // Перевірка на null
-            Log.d("My", "Already signed out!");
-            startActivity(new Intent(LogInActivity.this, SettingActivity.class));
-            return;
-        }
-        EditText Email = (EditText) findViewById(R.id.Email);
-        EditText Password = (EditText) findViewById(R.id.Password);
-
-        // to log in
-        MaterialButton btnToGoToSignUp = (MaterialButton) findViewById(R.id.btnToCreate);
-
-        MaterialButton btnSignUp = (MaterialButton) findViewById(R.id.btnSingUp);
-
-        // Handle Sign Up button click
-        btnSignUp.setOnClickListener(v -> {
-            // Тут додайте логіку для входу, наприклад:
-            String email = Email.getText().toString();
-            String password = Password.getText().toString();
-            signIn(email, password);
-        });
-
-        // Handle Go to Sign Up button click
-        btnToGoToSignUp.setOnClickListener(v -> {
-            // Перехід до активності реєстрації
-            startActivity(new Intent(LogInActivity.this, RegActivity.class));
-        });
+        initializeFirebase();
+        initializeViews();
+        checkCurrentUser();
+        setupClickListeners();
     }
 
-    // Method for signing in the user
-    private void signIn(String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            Log.d("My", "Email or password is null!");
+    private void initializeFirebase() {
+        auth = FirebaseAuth.getInstance();
+    }
+
+    private void initializeViews() {
+        emailEdit = findViewById(R.id.Email);
+        passwordEdit = findViewById(R.id.Password);
+        signInButton = findViewById(R.id.btnSingUp);
+        goToSignUpButton = findViewById(R.id.btnToCreate);
+        progressBar = findViewById(R.id.progressBar); // Додайте ProgressBar у ваш layout
+    }
+
+    private void checkCurrentUser() {
+        if (auth.getCurrentUser() != null) {
+            Log.d(TAG, "User already logged in: " + auth.getCurrentUser().getEmail());
+            navigateToMain();
+            finish();
+        }
+    }
+
+    private void setupClickListeners() {
+        signInButton.setOnClickListener(v -> attemptSignIn());
+        goToSignUpButton.setOnClickListener(v -> navigateToRegistration());
+    }
+
+    private void attemptSignIn() {
+        String email = emailEdit.getText().toString().trim();
+        String password = passwordEdit.getText().toString().trim();
+
+        if (!validateInput(email, password)) {
             return;
         }
-        Log.d("My", "wtf is that!");
+
+        showLoading();
+        signIn(email, password);
+    }
+
+    private boolean validateInput(String email, String password) {
+        if (TextUtils.isEmpty(email)) {
+            emailEdit.setError("Email is required");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            passwordEdit.setError("Password is required");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void signIn(@NonNull String email, @NonNull String password) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
+                    hideLoading();
                     if (task.isSuccessful()) {
-                        Log.d("My", "Sign In successful!");
-                        startActivity(new Intent(LogInActivity.this, SettingActivity.class));
+                        Log.d(TAG, "Sign in successful");
+                        navigateToMain();
                         finish();
                     } else {
-                        Log.d("My", "Sign In failure! " + task.getException().getMessage());
+                        handleSignInError(task.getException());
                     }
-                    Log.d("My", email + " " + password);
                 });
+    }
+
+    private void handleSignInError(Exception exception) {
+        String errorMessage;
+        if (exception instanceof FirebaseAuthInvalidUserException) {
+            errorMessage = "No account found with this email";
+        } else if (exception instanceof FirebaseAuthInvalidCredentialsException) {
+            errorMessage = "Invalid email or password";
+        } else {
+            errorMessage = "Sign in failed: " + exception.getMessage();
+        }
+        Log.e(TAG, "Sign in error: " + errorMessage, exception);
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
+    }
+
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        signInButton.setEnabled(false);
+        goToSignUpButton.setEnabled(false);
+        signInButton.setVisibility(View.GONE);
+        goToSignUpButton.setVisibility(View.GONE);
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        signInButton.setEnabled(true);
+        goToSignUpButton.setEnabled(true);
+        goToSignUpButton.setVisibility(View.VISIBLE);
+        signInButton.setVisibility(View.VISIBLE);
+    }
+
+    private void navigateToMain() {
+        startActivity(new Intent(LogInActivity.this, MainActivity.class));
+    }
+
+    private void navigateToRegistration() {
+        startActivity(new Intent(LogInActivity.this, RegActivity.class));
     }
 }
