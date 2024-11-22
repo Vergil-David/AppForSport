@@ -17,6 +17,8 @@ import com.example.befit.IListeners.OnMealSelectedListener;
 import com.example.befit.adapters.MealAdapter;
 import com.example.befit.DialogFragments.MealDialogFragment;
 import com.example.befit.databinding.ActivityFoodListBinding;
+import com.example.befit.tools.ActivityLevel;
+import com.example.befit.tools.CaloriesCalculator;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -54,6 +56,8 @@ public class FoodListActivity extends AppCompatActivity
         });
 
         LoadMealsFromDatabase();
+
+        //binding.kcalIntakeText.setText(String.valueOf(CaloriesCalculator.CalculateCaloriesIntake(false,85,170,20, ActivityLevel.)) + " kcal");
 
         binding.frameTest.setOnClickListener( v -> {
             Toast.makeText(this,String.valueOf(meals.size()), Toast.LENGTH_LONG).show();

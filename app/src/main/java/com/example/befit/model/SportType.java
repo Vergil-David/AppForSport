@@ -1,6 +1,7 @@
 package com.example.befit.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SportType  implements Serializable {
@@ -15,6 +16,12 @@ public class SportType  implements Serializable {
         this.imageId = imageId;
         this.ImageBackGroudId = ImageBackGroudId;
         this.activities = activities;
+    }
+    public SportType(String name, int imageId, int imageBackGroudId) {
+        this.name = name;
+        this.imageId = imageId;
+        this.ImageBackGroudId = imageBackGroudId;
+        this.activities = new ArrayList<>();
     }
 
     public void setName(String text) {this.name = text;}

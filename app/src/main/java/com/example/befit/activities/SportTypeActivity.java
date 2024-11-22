@@ -51,9 +51,9 @@ public class SportTypeActivity extends AppCompatActivity {
 
         List<SportType> sportTypes = List.of(
                 new SportType(getString(R.string.at_home),R.drawable.at_home_image, R.drawable.home_backgroud, activities),
-                new SportType(getString(R.string.in_the_gym),R.drawable.in_the_gym_image, R.drawable.gym_background, activities),
-                new SportType(getString(R.string.outdoor),R.drawable.outdoor_image, R.drawable.outdoor_background, activities),
-                new SportType(getString(R.string.yoga),R.drawable.yoga_image, R.drawable.yoga_background, activities)
+                new SportType(getString(R.string.in_the_gym),R.drawable.in_the_gym_image, R.drawable.gym_background),
+                new SportType(getString(R.string.outdoor),R.drawable.outdoor_image, R.drawable.outdoor_background),
+                new SportType(getString(R.string.yoga),R.drawable.yoga_image, R.drawable.yoga_background)
         );
 
         adapter = new SportTypeAdapter(this, sportTypes);
@@ -67,21 +67,15 @@ public class SportTypeActivity extends AppCompatActivity {
                     if(dataSnapshot.exists()) {
                         try {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                // Отримуємо значення з Firebase
-                                String imageUrl = snapshot.child("ImageUrl").getValue().toString();
-                                String name = snapshot.child("Name").getValue().toString();
-                                String description = snapshot.child("Description").getValue().toString();
-                                // Перевіряємо та безпечно отримуємо числові значення
-                                long durationLong = snapshot.child("Duration").getValue(Long.class);  // отримуємо як Long
-                                long repsLong = snapshot.child("Reps").getValue(Long.class);  // отримуємо як Long
-                                long setsLong = snapshot.child("Sets").getValue(Long.class);  // отримуємо як Long
-
-                                // Переводимо Long в int
-                                int duration = (int) durationLong;
-                                int reps = (int) repsLong;
-                                int sets = (int) setsLong;
-                                // Створюємо нову активність
-                                SportActivity sportActivity = new SportActivity(imageUrl, name, description, duration, reps, sets);
+                                // Створюємо нову активність та одразу заповнюємо її значеннями з Firebase
+                                SportActivity sportActivity = new SportActivity(
+                                        snapshot.child("ImageUrl").getValue(String.class),
+                                        snapshot.child("Name").getValue(String.class),
+                                        snapshot.child("Description").getValue(String.class),
+                                        snapshot.child("Duration").getValue(Long.class).intValue(),
+                                        snapshot.child("Sets").getValue(Long.class).intValue(),
+                                        snapshot.child("Met").getValue(Double.class)
+                                );
 
                                 // Додаємо активність до списку
                                 activities.add(sportActivity);
