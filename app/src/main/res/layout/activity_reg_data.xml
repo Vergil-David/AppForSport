@@ -5,19 +5,20 @@
     android:layout_height="match_parent"
     android:background="@drawable/settings_background">
 
+    <!--  make extra light-->
     <TextView
         android:id="@+id/singup_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="233dp"
         android:text="Create an account"
+        android:textColor="@color/white"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
-        android:layout_marginTop="30dp"
         tools:ignore="HardcodedText" />
 
-    <!--  make extra light-->
     <TextView
         android:id="@+id/to_login_title"
         android:layout_width="wrap_content"
@@ -33,73 +34,23 @@
         android:textStyle="bold"
         tools:ignore="HardcodedText" />
 
-    <!-- Поле Email -->
 
-    <EditText
-        android:id="@+id/Email"
-        style="@style/EditTextStyle"
-        android:layout_below="@id/to_login_title"
-        android:layout_marginTop="46dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Email" />
-
-    <EditText
-        android:id="@+id/Password"
-        style="@style/EditTextStyle"
-        android:layout_below="@id/Email"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Password" />
-
-    <EditText
-        android:id="@+id/Name"
-        style="@style/EditTextStyle"
-        android:layout_below="@id/Password"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Name" />
-
-    <EditText
-        android:id="@+id/Year"
-        style="@style/EditTextStyle"
-        android:layout_below="@id/Name"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
-        android:hint="Year" />
 
     <EditText
         android:id="@+id/Weight"
         style="@style/EditTextStyle"
-        android:layout_below="@id/Year"
         android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
         android:hint="Weight" />
-
-    <!-- Checkbox Remember Me -->
-    <CheckBox
-        android:id="@+id/remember_me_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Weight"
-        android:layout_alignStart="@+id/Weight"
-        android:layout_marginStart="0dp"
-
-        android:layout_marginTop="10dp"
-        android:buttonTint="@color/white"
-        android:text="Remember me"
-        android:textColor="@color/white" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="305dp"
         android:layout_height="48dp"
         android:id="@+id/btnSingUp"
         android:text="Sing Up"
-        android:layout_below="@id/remember_me_checkbox"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_background_2"
         android:textSize="24sp"
-
         />
 
     <!-- Декоративна лінія ліворуч -->
@@ -111,7 +62,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="87dp"
-
         android:layout_marginEnd="23dp"
         android:background="@drawable/button_background_2"
         android:text="Log in"

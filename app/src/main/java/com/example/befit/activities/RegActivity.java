@@ -3,9 +3,8 @@ package com.example.befit.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
+import android.util.Log;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,10 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class RegActivity extends AppCompatActivity {
-    private static final String TAG = "RegActivity";
     private static final int MIN_PASSWORD_LENGTH = 6;
     private static final int MIN_AGE = 5;
     private static final int MAX_AGE = 100;
@@ -41,7 +38,6 @@ public class RegActivity extends AppCompatActivity {
     private EditText weightEdit;
     private MaterialButton signupBtn;
     private MaterialButton logInBtn;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,6 @@ public class RegActivity extends AppCompatActivity {
         weightEdit = findViewById(R.id.Weight);
         signupBtn = findViewById(R.id.btnSingUp);
         logInBtn = findViewById(R.id.btnLogIn);
-        progressBar = findViewById(R.id.progressBar);
     }
 
     private void checkCurrentUser() {
@@ -93,7 +88,6 @@ public class RegActivity extends AppCompatActivity {
             return;
         }
 
-        showLoading();
         registerUser(email, password, name, age, weight);
     }
 
@@ -160,31 +154,15 @@ public class RegActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Надсилаємо лист для підтвердження електронної пошти
-                        Objects.requireNonNull(auth.getCurrentUser()).sendEmailVerification()
-                                .addOnCompleteListener(verificationTask -> {
-                                    if (verificationTask.isSuccessful()) {
-                                        showToast("Verification email sent. Please check your inbox.");
-                                        hideLoading();
-
-                                        // Розриваємо сеанс і пропонуємо увійти після підтвердження
-                                        FirebaseAuth.getInstance().signOut();
-
-                                        // Переходимо на екран входу
-                                        navigateToLogin();
-                                    } else {
-                                        hideLoading();
-                                        showToast("Failed to send verification email: " +
-                                                verificationTask.getException().getMessage());
-                                    }
-                                });
+                        // Спочатку зберігаємо дані користувача
+                        Log.d("My", "User email: " + auth.getCurrentUser().getEmail());
+                        Log.d("My", "User ID: " + auth.getUid());
+                        saveUserDataToFirestore(email, name, age, weight);
                     } else {
-                        hideLoading();
                         handleRegistrationError(task.getException());
                     }
                 });
     }
-
 
     private void saveUserDataToFirestore(String email, String name, String age, String weight) {
         String userId = auth.getCurrentUser().getUid();
@@ -198,12 +176,12 @@ public class RegActivity extends AppCompatActivity {
                 .document(userId)
                 .set(userData)
                 .addOnSuccessListener(aVoid -> {
-                    hideLoading();
                     showToast("Registration Successful");
                     navigateToMain();
+                    //navigateToLogin();
                 })
                 .addOnFailureListener(e -> {
-                    hideLoading();
+                    //hideLoading();
                     showToast("Failed to save user data: " + e.getMessage());
                 });
     }
@@ -220,22 +198,6 @@ public class RegActivity extends AppCompatActivity {
             errorMessage = "Registration failed: " + exception.getMessage();
         }
         showToast(errorMessage);
-    }
-
-    private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-        signupBtn.setEnabled(false);
-        logInBtn.setEnabled(false);
-        signupBtn.setVisibility(View.GONE);
-        logInBtn.setVisibility(View.GONE);
-    }
-
-    private void hideLoading() {
-        progressBar.setVisibility(View.GONE);
-        signupBtn.setEnabled(true);
-        logInBtn.setEnabled(true);
-        signupBtn.setVisibility(View.VISIBLE);
-        logInBtn.setVisibility(View.VISIBLE);
     }
 
     private void showToast(String message) {

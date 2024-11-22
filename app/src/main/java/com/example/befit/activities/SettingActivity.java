@@ -1,16 +1,12 @@
 package com.example.befit.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -46,38 +42,7 @@ public class SettingActivity extends AppCompatActivity {
         yesButton.setOnClickListener(v -> {
 
 
-            // Перевіряємо, чи користувач авторизований
-            if (auth.getCurrentUser() != null) {
-                // Надсилаємо email для підтвердження
-                auth.getCurrentUser().sendEmailVerification()
-                        .addOnCompleteListener(emailTask -> {
-                            if (emailTask.isSuccessful()) {
-                                Toast.makeText(this, "Verification email sent. Please check your email to confirm account deletion",
-                                        Toast.LENGTH_LONG).show();
 
-                                // Зберігаємо флаг в SharedPreferences, що користувач ініціював видалення
-                                SharedPreferences prefs = getSharedPreferences("AccountPrefs", Context.MODE_PRIVATE);
-                                prefs.edit().putBoolean("deletionRequested", true).apply();
-
-                                // Показуємо інструкції користувачу
-                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                                builder.setTitle("Account Deletion Initiated")
-                                        .setMessage("A confirmation email has been sent to your email address. " +
-                                                "Please click the verification link in the email to complete account deletion.")
-                                        .setPositiveButton("OK", (dialog, which) -> {
-                                            // Виходимо з акаунту
-                                            FirebaseAuth.getInstance().signOut();
-                                            startActivity(new Intent(this, LogInActivity.class));
-                                            finish();
-                                        })
-                                        .show();
-                            } else {
-                                Toast.makeText(this, "Failed to send verification email",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-            deleteAccountDialog.setVisibility(View.GONE);
         });
 
         // Кнопка "No"

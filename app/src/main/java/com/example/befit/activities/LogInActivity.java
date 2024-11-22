@@ -3,11 +3,9 @@ package com.example.befit.activities;
 import android.text.TextUtils;
 import android.util.Log;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 
 import android.content.Intent;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,7 +25,6 @@ public class LogInActivity extends AppCompatActivity {
     private EditText passwordEdit;
     private MaterialButton signInButton;
     private MaterialButton goToSignUpButton;
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +46,6 @@ public class LogInActivity extends AppCompatActivity {
         passwordEdit = findViewById(R.id.Password);
         signInButton = findViewById(R.id.btnSingUp);
         goToSignUpButton = findViewById(R.id.btnToCreate);
-        progressBar = findViewById(R.id.progressBar); // Додайте ProgressBar у ваш layout
     }
 
     private void checkCurrentUser() {
@@ -73,7 +69,6 @@ public class LogInActivity extends AppCompatActivity {
             return;
         }
 
-        showLoading();
         signIn(email, password);
     }
 
@@ -94,10 +89,9 @@ public class LogInActivity extends AppCompatActivity {
     private void signIn(@NonNull String email, @NonNull String password) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    hideLoading();
                     if (task.isSuccessful()) {
                         // Перевірка, чи підтверджена електронна адреса
-                        if (auth.getCurrentUser() != null && auth.getCurrentUser().isEmailVerified()) {
+                        if (auth.getCurrentUser() != null) {
                             Log.d(TAG, "Sign in successful and email verified");
                             navigateToMain();
                             finish();
@@ -123,22 +117,6 @@ public class LogInActivity extends AppCompatActivity {
         }
         Log.e(TAG, "Sign in error: " + errorMessage, exception);
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
-    }
-
-    private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-        signInButton.setEnabled(false);
-        goToSignUpButton.setEnabled(false);
-        signInButton.setVisibility(View.GONE);
-        goToSignUpButton.setVisibility(View.GONE);
-    }
-
-    private void hideLoading() {
-        progressBar.setVisibility(View.GONE);
-        signInButton.setEnabled(true);
-        goToSignUpButton.setEnabled(true);
-        goToSignUpButton.setVisibility(View.VISIBLE);
-        signInButton.setVisibility(View.VISIBLE);
     }
 
     private void navigateToMain() {
