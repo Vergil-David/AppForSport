@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.befit.R;
 import com.example.befit.databinding.ActivitySportInfoBinding;
 import com.example.befit.model.SportActivity;
+import com.example.befit.tools.CaloriesCalculator;
 
 public class sportInfoActivity extends AppCompatActivity {
 
@@ -33,6 +34,10 @@ public class sportInfoActivity extends AppCompatActivity {
         binding.desc.setText(activity.getDesc());
         binding.textDuration.setText(String.valueOf(activity.getDuration()) + "s");
         binding.textSets.setText(String.valueOf(activity.getSets()));
-        binding.textReps.setText(String.valueOf(activity.getReps()));
+
+        double result = CaloriesCalculator.Calculate(85, 3, activity.getDuration() * activity.getSets());
+        int truncatedResult = (int) Math.floor(result);
+        binding.textMet.setText(String.valueOf(activity.getMet()));
+        
     }
 }

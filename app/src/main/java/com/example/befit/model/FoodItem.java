@@ -12,7 +12,7 @@ public class FoodItem implements Serializable {
     private final double protein;
     private final double carbohydrates;
 
-    public FoodItem(String name, String imageUrl,String servingUnit, int calories,int servingGram
+    public FoodItem(String name, String imageUrl,String servingUnit, int calories, int servingGram
             , double totalFat, double protein,double carbohydrates) {
         this.name = name;
         this.imageUrl = imageUrl;

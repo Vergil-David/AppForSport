@@ -9,13 +9,14 @@ public class SportActivity  implements Serializable {
 
     private String desc;
 
-    private int duration, reps, sets;
-    public SportActivity(String imageUrl, String name,String desc, int duration, int reps, int sets) {
+    private int duration, sets;
+    private double met;
+    public SportActivity(String imageUrl, String name,String desc, int duration, int sets, double met) {
         this.imageUrl = imageUrl;
         this.name = name;
         this.desc = desc;
         this.duration = duration;
-        this.reps = reps;
+        this.met = met;
         this.sets = sets;
     }
 
@@ -30,8 +31,8 @@ public class SportActivity  implements Serializable {
         this.duration = duration;
     }
 
-    public void setReps(int reps) {
-        this.reps = reps;
+    public void setMet(double met) {
+        this.met = met;
     }
 
     public void setSets(int sets) {
@@ -48,8 +49,8 @@ public class SportActivity  implements Serializable {
         return duration;
     }
 
-    public int getReps() {
-        return reps;
+    public double getMet() {
+        return met;
     }
 
     public int getSets() {

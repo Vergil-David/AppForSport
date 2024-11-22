@@ -58,6 +58,7 @@ public class MealDetailsDialogFragment extends BaseDialogFragment {
         ListView foodList = dialogView.findViewById(R.id.foodDetailsList);
         TextView kcal = dialogView.findViewById(R.id.TextTotalKcal);
         Button deleteMeal = dialogView.findViewById(R.id.btnDelete);
+        Button eatMeal = dialogView.findViewById(R.id.btnEat);
 
         if (mealItem != null) {
             disc.setText(mealItem.getName());
@@ -81,6 +82,10 @@ public class MealDetailsDialogFragment extends BaseDialogFragment {
                    })
                    .show();
             dismiss();
+        });
+
+        eatMeal.setOnClickListener(v -> {
+
         });
     }
 }
