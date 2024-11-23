@@ -80,13 +80,12 @@ public class FireBaseManager {
     }
 
     public static void getAllDailyCalories(String userId, OnSuccessListener<QuerySnapshot> onSuccess, OnFailureListener onFailure) {
-        db.collection("usersCalories")
+        db.collection("dailyActivivty")
                 .document(userId)
                 .collection("dailyCalories")
                 .get()
                 .addOnSuccessListener(onSuccess)
                 .addOnFailureListener(onFailure);
     }
-
 
 }
