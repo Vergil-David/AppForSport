@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.befit.R;
+import com.example.befit.RegDataActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -20,13 +21,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class RegActivity extends AppCompatActivity {
     private static final int MIN_PASSWORD_LENGTH = 6;
-    private static final int MIN_AGE = 5;
-    private static final int MAX_AGE = 100;
-    private static final int MIN_WEIGHT = 20;
-    private static final int MAX_WEIGHT = 590;
 
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
@@ -59,8 +57,6 @@ public class RegActivity extends AppCompatActivity {
         emailEdit = findViewById(R.id.Email);
         passwordEdit = findViewById(R.id.Password);
         nameEdit = findViewById(R.id.Name);
-        ageEdit = findViewById(R.id.Year);
-        weightEdit = findViewById(R.id.Weight);
         signupBtn = findViewById(R.id.btnSingUp);
         logInBtn = findViewById(R.id.btnLogIn);
     }
@@ -81,17 +77,15 @@ public class RegActivity extends AppCompatActivity {
         String email = emailEdit.getText().toString().trim();
         String password = passwordEdit.getText().toString().trim();
         String name = nameEdit.getText().toString().trim();
-        String age = ageEdit.getText().toString().trim();
-        String weight = weightEdit.getText().toString().trim();
 
-        if (!validateInputs(email, password, name, age, weight)) {
+        if (!validateInputs(email, password, name)) {
             return;
         }
 
-        registerUser(email, password, name, age, weight);
+        registerUser(email, password, name);
     }
 
-    private boolean validateInputs(String email, String password, String name, String age, String weight) {
+    private boolean validateInputs(String email, String password, String name) {
         // Email validation
         if (TextUtils.isEmpty(email)) {
             emailEdit.setError("Email is required");
@@ -117,71 +111,40 @@ public class RegActivity extends AppCompatActivity {
             nameEdit.requestFocus();
             return false;
         }
-
-        // Age validation
-        try {
-            int ageValue = Integer.parseInt(age);
-            if (ageValue < MIN_AGE || ageValue > MAX_AGE) {
-                ageEdit.setError("Age must be between " + MIN_AGE + " and " + MAX_AGE);
-                ageEdit.requestFocus();
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            ageEdit.setError("Invalid age");
-            ageEdit.requestFocus();
-            return false;
-        }
-
-        // Weight validation
-        try {
-            int weightValue = Integer.parseInt(weight);
-            if (weightValue < MIN_WEIGHT || weightValue > MAX_WEIGHT) {
-                weightEdit.setError("Weight must be between " + MIN_WEIGHT + " and " + MAX_WEIGHT);
-                weightEdit.requestFocus();
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            weightEdit.setError("Invalid weight");
-            weightEdit.requestFocus();
-            return false;
-        }
-
         return true;
     }
 
     private void registerUser(@NonNull String email, @NonNull String password,
-                              @NonNull String name, @NonNull String age, @NonNull String weight) {
+                              @NonNull String name) {
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         // Спочатку зберігаємо дані користувача
                         Log.d("My", "User email: " + auth.getCurrentUser().getEmail());
                         Log.d("My", "User ID: " + auth.getUid());
-                        saveUserDataToFirestore(email, name, age, weight);
+                        saveUserDataToFirestore(email, name);
                     } else {
                         handleRegistrationError(task.getException());
                     }
                 });
     }
 
-    private void saveUserDataToFirestore(String email, String name, String age, String weight) {
-        String userId = auth.getCurrentUser().getUid();
+    private void saveUserDataToFirestore(String email, String name) {
+        String userId = Objects.requireNonNull(auth.getCurrentUser()).getUid();
         Map<String, Object> userData = new HashMap<>();
         userData.put("name", name);
         userData.put("email", email);
-        userData.put("age", age);
-        userData.put("weight", weight);
 
         firestore.collection("users")
                 .document(userId)
                 .set(userData)
                 .addOnSuccessListener(aVoid -> {
                     showToast("Registration Successful");
-                    navigateToMain();
+                    //navigateToMain();
                     //navigateToLogin();
+                    navigateToRegData();
                 })
                 .addOnFailureListener(e -> {
-                    //hideLoading();
                     showToast("Failed to save user data: " + e.getMessage());
                 });
     }
@@ -211,6 +174,11 @@ public class RegActivity extends AppCompatActivity {
 
     private void navigateToLogin() {
         startActivity(new Intent(RegActivity.this, LogInActivity.class));
+        finish();
+    }
+
+    private void navigateToRegData() {
+        startActivity(new Intent(RegActivity.this, RegDataActivity.class));
         finish();
     }
 }
