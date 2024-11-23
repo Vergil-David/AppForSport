@@ -5,32 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/food_background"
+    android:background="@drawable/rounded_shape_4"
     tools:context=".activities.StatsActivity">
 
-    <ImageButton
-        android:id="@+id/btnBack"
-        style="@style/backButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <LinearLayout
-        android:id="@+id/list"
-        android:layout_width="431dp"
-        android:layout_height="790dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack">
-
-
         <FrameLayout
-            android:layout_width="383dp"
-            android:layout_height="206dp"
+            android:id="@+id/frameWalk"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:background="@drawable/rounded_shape_1"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
                 style="@style/textProgress"
@@ -39,118 +27,300 @@
                 android:text="Walking"
                 android:textColor="#6BECF5" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100sp"
+                android:layout_marginTop="50dp"
+                android:text="Comming Soon..."
+                android:textSize="24dp" />
 
-                <View
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_margin="10dp"
-                    android:layout_marginTop="25dp"
-                    android:background="@drawable/circle_stroke" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="4.6km" />
-            </LinearLayout>
-
-            <ProgressBar
-                android:id="@+id/progressBarWalking"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="292dp"
-                android:layout_height="19dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:max="100"
-                android:progress="50"
-                android:progressTint="#6BECF5" />
         </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="383dp"
-            android:layout_height="206dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameFood"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_marginTop="26dp"
             android:background="@drawable/rounded_shape_1"
-            android:elevation="10dp">
+            android:layout_marginHorizontal="25dp"
+            android:elevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameWalk">
 
             <TextView
+                android:id="@+id/textView6"
                 style="@style/textProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Food"
-                android:textColor="#5E70DB" />
+                android:textColor="#5E70DB"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/button_background_1"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.191"
+                app:layout_constraintStart_toEndOf="@+id/foodProgBarOval"
+                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily calories intake"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyIntakeCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                    app:layout_constraintStart_toEndOf="@+id/textView3"
+                    app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:background="@drawable/buttob_background_4"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.191"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="consumed"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/consumedCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <me.tankery.lib.circularseekbar.CircularSeekBar
+                android:id="@+id/foodProgBarOval"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center_vertical|left"
-                android:layout_margin="10dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/circle_stroke" />
+                android:layout_marginStart="10dp"
+                app:cs_circle_color="@color/WhiteGrey"
+                app:cs_circle_progress_color="@color/blueCol"
+                app:cs_circle_stroke_width="10dp"
+                app:cs_disable_pointer="true"
+                app:cs_max="100"
+                app:cs_progress="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
                 android:id="@+id/progressBarFood"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="292dp"
-                android:layout_height="19dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:max="100"
                 android:progress="50"
-                android:progressTint="#5E70DB" />
-        </FrameLayout>
+                android:layout_marginHorizontal="20sp"
+                android:progressTint="#5E70DB"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/foodProgBarOval" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <FrameLayout
-            android:layout_width="383dp"
-            android:layout_height="206dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameActivity"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_marginTop="26dp"
             android:background="@drawable/rounded_shape_1"
-            android:elevation="10dp">
+            android:layout_marginHorizontal="25dp"
+            android:elevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameFood">
 
             <TextView
+                android:id="@+id/textView7"
                 style="@style/textProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Activities"
-                android:textColor="#CA57E3" />
+                android:textColor="#CA57E3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/button_background_5"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.191"
+                app:layout_constraintStart_toEndOf="@+id/activityProgBarOval"
+                app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="daily calories norm"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dailyCaloriesActivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:background="@drawable/button_background_5"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.191"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="burned"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/burnedCalories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20sp"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                    app:layout_constraintStart_toEndOf="@+id/textView8"
+                    app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <me.tankery.lib.circularseekbar.CircularSeekBar
+                android:id="@+id/activityProgBarOval"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center_vertical|left"
-                android:layout_margin="10dp"
-                android:layout_marginTop="25dp"
-                android:background="@drawable/circle_stroke" />
+                android:layout_marginStart="10dp"
+                app:cs_circle_color="@color/WhiteGrey"
+                app:cs_circle_progress_color="#CA57E3"
+                app:cs_circle_stroke_width="10dp"
+                app:cs_disable_pointer="true"
+                app:cs_max="100"
+                app:cs_progress="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
                 android:id="@+id/progressBarActivities"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="292dp"
-                android:layout_height="19dp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:max="100"
-                android:progress="50"
-                android:progressTint="#CA57E3" />
-        </FrameLayout>
-    </LinearLayout>
+                android:progress="0"
+                android:layout_marginHorizontal="20sp"
+                android:progressTint="#CA57E3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activityProgBarOval" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="383dp"
+    <android.widget.Button
+        android:id="@+id/buttonCalendar"
+        android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:backgroundTint="@color/white"
-        android:text="Total calories"
-        android:textColor="@color/black"
+        android:background="@drawable/button_background_2"
+        android:text="Calendar"
+        android:textColor="@color/white"
+        android:layout_marginTop="40sp"
+        android:layout_marginHorizontal="50dp"
         android:textSize="24dp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingHorizontal="50dp"
+        android:drawableEnd="@drawable/calendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameActivity">
+
+    </android.widget.Button>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,23 +50,48 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <View
+            <me.tankery.lib.circularseekbar.CircularSeekBar
+                android:id="@+id/walkProgBarOval"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/circle_stroke" />
+                app:cs_progress = "0"
+                app:cs_max = "100"
+                android:layout_marginEnd="10dp"
+                app:cs_circle_progress_color = "#6BECF5"
+                app:cs_circle_color = "@color/WhiteGrey"
+                app:cs_circle_stroke_width = "10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
+            <me.tankery.lib.circularseekbar.CircularSeekBar
+                android:id="@+id/foodProgBarOval"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/circle_stroke" />
+                app:cs_progress = "0"
+                app:cs_max = "100"
+                app:cs_disable_pointer="true"
+                android:layout_marginEnd="10dp"
+                app:cs_circle_progress_color = "@color/blueCol"
+                app:cs_circle_color = "@color/WhiteGrey"
+                app:cs_circle_stroke_width = "10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
+            <me.tankery.lib.circularseekbar.CircularSeekBar
+                android:id="@+id/activityProgBarOval"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/circle_stroke" />
+                app:cs_progress = "0"
+                app:cs_max = "100"
+                app:cs_disable_pointer="true"
+                app:cs_circle_progress_color = "#CA57E3"
+                app:cs_circle_color = "@color/WhiteGrey"
+                app:cs_circle_stroke_width = "10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
         <LinearLayout

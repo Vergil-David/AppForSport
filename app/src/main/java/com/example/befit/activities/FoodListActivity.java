@@ -2,6 +2,7 @@ package com.example.befit.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.befit.DataBase.MealRepository;
 import com.example.befit.DialogFragments.MealDetailsDialogFragment;
 import com.example.befit.IListeners.OnMealDeletedListener;
+import com.example.befit.IListeners.OnUpdateMeals;
+import com.example.befit.User.User;
+import com.example.befit.model.FoodItem;
 import com.example.befit.model.MealItem;
 import com.example.befit.IListeners.OnMealSelectedListener;
 import com.example.befit.adapters.MealAdapter;
@@ -24,7 +28,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class FoodListActivity extends AppCompatActivity
-        implements OnMealSelectedListener, OnMealDeletedListener {
+        implements OnMealSelectedListener, OnMealDeletedListener , OnUpdateMeals {
 
     MealRepository mealRepository;
     ActivityFoodListBinding binding;
@@ -56,11 +60,14 @@ public class FoodListActivity extends AppCompatActivity
         });
 
         LoadMealsFromDatabase();
-
-        //binding.kcalIntakeText.setText(String.valueOf(CaloriesCalculator.CalculateCaloriesIntake(false,85,170,20, ActivityLevel.)) + " kcal");
+        binding.kcalIntakeText.setText(String.valueOf(CaloriesCalculator.CalculateCaloriesIntake(User.getInstance())) + " kcal");
 
         binding.frameTest.setOnClickListener( v -> {
-            Toast.makeText(this,String.valueOf(meals.size()), Toast.LENGTH_LONG).show();
+            for(MealItem item : meals )
+            {
+                for(FoodItem foodItem : item.getListFood())
+                    Log.d("meals",foodItem.getName());
+            }
         });
         binding.btnAdd.setOnClickListener(v -> {
             MealDialogFragment dialogFragment = MealDialogFragment.newInstance();
@@ -73,6 +80,7 @@ public class FoodListActivity extends AppCompatActivity
         binding.ListOfFood.setOnItemClickListener((parent, view, position, id) -> {
             MealDetailsDialogFragment detailsDialog = MealDetailsDialogFragment.newInstance(meals.get(position), position);
             detailsDialog.setOnMealDeletedListener(this);
+            detailsDialog.setOnUpdateMealsListener(this);
             detailsDialog.show(getSupportFragmentManager(), "MealDetailsDialog");
         });
     }
@@ -116,6 +124,11 @@ public class FoodListActivity extends AppCompatActivity
     @Override
     public void onMealDeleted(int position) {
         meals.remove(position);
+        mealAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void Update() {
         mealAdapter.notifyDataSetChanged();
     }
 }

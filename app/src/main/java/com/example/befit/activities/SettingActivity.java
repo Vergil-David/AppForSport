@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.befit.R;
+import com.example.befit.User.User;
+import com.example.befit.databinding.ActivitySettingsBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingActivity extends AppCompatActivity {
@@ -29,6 +32,10 @@ public class SettingActivity extends AppCompatActivity {
             FirebaseAuth.getInstance().signOut(); // Вихід з облікового запису
             navigateToLogin(); // Переходимо на екран входу
         });
+
+
+        TextView name =  findViewById(R.id.textName);
+        name.setText(User.getInstance().getName());
 
         ConstraintLayout deleteAccountDialog = findViewById(R.id.deleteAccountDialog);
         Button yesButton = findViewById(R.id.yesButton);

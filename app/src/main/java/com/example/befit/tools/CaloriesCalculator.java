@@ -3,7 +3,7 @@ package com.example.befit.tools;
 import com.example.befit.User.User;
 
 public class CaloriesCalculator {
-    public static double Calculate(double userWeight, double met, int durationSeconds)
+    public static double CalculateActivity(double userWeight, double met, int durationSeconds)
     {
         double durationHours = durationSeconds / 3600.0;
         return userWeight * met * durationHours;
@@ -21,5 +21,29 @@ public class CaloriesCalculator {
         double activityFactor = user.getActivityLevel().getMultiplier();
         double dailyCalories = bmr * activityFactor;
         return (int) dailyCalories;
+    }
+
+    public static double calculateBMR(double weight, double height, int age, boolean isMale) {
+        double bmr = 10 * weight + 6.25 * height - 5 * age;
+        bmr += isMale ? 5 : -161; // Додати або відняти в залежності від статі
+        return bmr;
+    }
+
+    public static double calculateTDEE(double bmr, double activityFactor) {
+        return bmr * activityFactor;
+    }
+
+    public static double calculateCaloriesForExercise(double tdee, double exercisePercentage) {
+        return tdee * exercisePercentage;
+    }
+
+    public static double calculateCaloriesToBurnForHealth(User user) {
+        double bmr = calculateBMR(user.getWeight(), user.getHeight(), user.getAge(), user.getSex() == Sex.Male);
+
+        double tdee = calculateTDEE(bmr, user.getActivityLevel().getMultiplier());
+
+        double caloriesForExercise = calculateCaloriesForExercise(tdee, 0.17);
+
+        return caloriesForExercise;
     }
 }

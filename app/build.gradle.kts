@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation ("me.tankery.lib:circularSeekBar:1.4.2")
     implementation ("com.google.android.material:material:1.7.0")
     implementation ("com.google.code.gson:gson:2.8.8")
     implementation ("androidx.room:room-runtime:2.5.0")

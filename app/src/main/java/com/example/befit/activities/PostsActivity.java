@@ -43,13 +43,11 @@ public class PostsActivity extends AppCompatActivity {
         myRef = database.getReference("post");
         loadPostsFromFireBase();
 
-
         binding.postsList.setOnItemClickListener(((parent, view, position, id) -> {
             Intent intent = new Intent(this, InfoPostActivity.class);
             PostItem resultPost = posts.get(position);
-            intent.putExtra("post" , (Serializable) resultPost);
+            intent.putExtra("post" ,(Serializable) resultPost);
             startActivity(intent);
-
         }));
     }
 
@@ -58,7 +56,6 @@ public class PostsActivity extends AppCompatActivity {
         binding.postsList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
-
     private void loadPostsFromFireBase() {
         try {
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -77,7 +74,6 @@ public class PostsActivity extends AppCompatActivity {
                         updateUI();
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Log.d("onCancelled", "Failed to read value.", error.toException());

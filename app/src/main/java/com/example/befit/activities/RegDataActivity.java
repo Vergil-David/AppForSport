@@ -1,16 +1,13 @@
-package com.example.befit;
+package com.example.befit.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.befit.activities.MainActivity;
-import com.example.befit.activities.RegActivity;
 import com.example.befit.databinding.ActivityRegDataBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;

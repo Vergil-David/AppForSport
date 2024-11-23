@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.example.befit.IListeners.OnFoodDeleteListener;
 import com.example.befit.model.FoodItem;
 import com.example.befit.R;
 
@@ -21,6 +23,12 @@ import java.util.Objects;
 
 public class FoodDescAdapter extends ArrayAdapter {
 
+    OnFoodDeleteListener listener;
+
+    public void setListener(OnFoodDeleteListener listener)
+    {
+        this.listener = listener;
+    }
     public FoodDescAdapter(Context context, List<FoodItem> food) {
         super(context, R.layout.list_meal_name_item, food);
     }
@@ -44,7 +52,7 @@ public class FoodDescAdapter extends ArrayAdapter {
         TextView fat = view.findViewById(R.id.foodFat);
         TextView protein = view.findViewById(R.id.foodProtein);
         TextView carbohydrates = view.findViewById(R.id.foodCarbohydrates);
-
+        Button buttonDel = view.findViewById(R.id.btnDelete);
 
         name.setText(Objects.requireNonNull(foodItem).getName());
         kcal.setText("Calories: " + foodItem.getCalories());
@@ -53,6 +61,11 @@ public class FoodDescAdapter extends ArrayAdapter {
         fat.setText("Total Fat: " + (foodItem.getTotalFat()));
         protein.setText("Protein: " + (foodItem.getProtein()));
         carbohydrates.setText("Carbohydrates: " + (foodItem.getCarbohydrates()));
+
+        buttonDel.setOnClickListener(v -> {
+            if(listener != null)
+                listener.OnFoodDelete(position);
+        });
 
         return view;
     }

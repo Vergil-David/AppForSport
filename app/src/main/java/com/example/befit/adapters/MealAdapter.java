@@ -13,10 +13,12 @@ import com.example.befit.R;
 import com.google.android.flexbox.FlexboxLayout;
 
 import java.util.List;
-public class MealAdapter extends ArrayAdapter<MealItem> {
+public class MealAdapter extends ArrayAdapter<MealItem>{
     public MealAdapter(Context context, List<MealItem> meals) {
         super(context, 0, meals);
     }
+
+    FlexboxLayout foodList;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -28,7 +30,7 @@ public class MealAdapter extends ArrayAdapter<MealItem> {
 
         TextView mealNameTextView = view.findViewById(R.id.mealNameTextView);
         TextView caloriesTextView = view.findViewById(R.id.caloriesTextView);
-        FlexboxLayout foodList = view.findViewById(R.id.ListOfFood);
+        foodList = view.findViewById(R.id.ListOfFood);
 
         if (meal != null) {
             mealNameTextView.setText(meal.getName());
@@ -47,7 +49,6 @@ public class MealAdapter extends ArrayAdapter<MealItem> {
         }
         return view;
     }
-
 }
 
 
