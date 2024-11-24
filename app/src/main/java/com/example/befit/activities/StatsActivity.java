@@ -26,7 +26,7 @@ public class StatsActivity extends AppCompatActivity {
         int currentCalories = DailyCaloriesManager.getInstance().getCaloriesGained();
         int maxCalories = CaloriesCalculator.CalculateCaloriesIntake(User.getInstance());
 
-        binding.dailyIntakeCalories.setText(String.valueOf(maxCalories) + " kcal");
+        binding.dailyIntakeCalories.setText(String.valueOf(maxCalories));
         binding.consumedCalories.setText(String.valueOf(currentCalories));
 
         int progress = getProgress(currentCalories,maxCalories);

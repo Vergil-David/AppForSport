@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-        loadData();
-
         Log.d("My", "User email: " + auth.getCurrentUser().getEmail());
         Log.d("My", "User ID: " + auth.getUid());
 
@@ -63,7 +61,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, SettingActivity.class));
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void loadData()  {
+
         if (auth.getCurrentUser() == null) {
             // Якщо користувач не увійшов, перенаправити на сторінку реєстрації
             progressDialog.dismiss();
@@ -88,19 +94,18 @@ public class MainActivity extends AppCompatActivity {
                             String age = document.getString("age");
                             String gender = document.getString("gender");
 
-                            int ageInt = Integer.parseInt(age);
-                            double weightDouble = Double.valueOf(weight);
-                            double heightDouble = Double.valueOf(height);
-                            Sex sex = gender.equals("Male") ? Sex.Male : Sex.Female;
-
-                            User.getInstance().initialize(name, auth.getUid(), ageInt, weightDouble, heightDouble, sex);
-
                             if (TextUtils.isEmpty(weight) || TextUtils.isEmpty(height) ||
                                     TextUtils.isEmpty(age) || TextUtils.isEmpty(gender)) {
                                 // Якщо поля відсутні, перенаправити на RegDataActivity
                                 redirectToRegDataActivity();
                             }
                             else {
+                                int ageInt = Integer.parseInt(age);
+                                double weightDouble = Double.valueOf(weight);
+                                double heightDouble = Double.valueOf(height);
+                                Sex sex = gender.equals("Male") ? Sex.Male : Sex.Female;
+
+                                User.getInstance().initialize(name, auth.getUid(), ageInt, weightDouble, heightDouble, sex);
                                 loadCaloriesData(userId);
                                 loadCalendarCaloriesData(userId);
                             }
@@ -120,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     DailyCaloriesManager.getInstance().setCaloriesGained(onSucces.getCaloriesGained());
                     DailyCaloriesManager.getInstance().setCaloriesBurned(onSucces.getCaloriesBurned());
 
-                    // Тепер все завантажено, оновлюємо прогрес бари
                     progressDialog.dismiss();
                     setProgressBarView();
                 },

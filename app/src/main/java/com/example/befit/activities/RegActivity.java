@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,17 +26,14 @@ import java.util.Objects;
 
 public class RegActivity extends AppCompatActivity {
     private static final int MIN_PASSWORD_LENGTH = 6;
-
     private FirebaseAuth auth;
     private FirebaseFirestore firestore;
 
     private EditText emailEdit;
     private EditText passwordEdit;
     private EditText nameEdit;
-    private EditText ageEdit;
-    private EditText weightEdit;
-    private MaterialButton signupBtn;
-    private MaterialButton logInBtn;
+    private android.widget.Button signupBtn;
+    private android.widget.Button logInBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

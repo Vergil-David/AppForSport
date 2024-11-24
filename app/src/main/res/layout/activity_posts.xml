@@ -9,6 +9,16 @@
     android:background="@color/white"
     tools:context=".activities.PostsActivity">
 
+    <ProgressBar
+        android:id="@+id/loadingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <ListView
         android:id="@+id/postsList"
         android:layout_width="match_parent"

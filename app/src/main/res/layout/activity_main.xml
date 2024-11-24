@@ -56,6 +56,7 @@
                 android:layout_height="100dp"
                 app:cs_progress = "0"
                 app:cs_max = "100"
+                app:cs_disable_pointer="true"
                 android:layout_marginEnd="10dp"
                 app:cs_circle_progress_color = "#6BECF5"
                 app:cs_circle_color = "@color/WhiteGrey"

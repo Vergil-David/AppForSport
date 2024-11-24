@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.applandeo.materialcalendarview.EventDay;
 import com.example.befit.DataBase.FireBaseManager;
+import com.example.befit.DialogFragments.DayCaloriesInfo;
 import com.example.befit.R;
 import com.example.befit.User.CalenderCalories;
 import com.example.befit.User.DailyCalories;
@@ -43,15 +44,18 @@ public class CalendarActivity extends AppCompatActivity {
 
     Map<String, DailyCalories> calender;
 
+    String currentDate;
+
+    int dateBurnedCalories, dateGainedCalories;
+    int maxBrnCal, maxGaindCal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding = ActivityCalendarBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.frameFood.setVisibility(View.INVISIBLE);
-        binding.frameActivity.setVisibility(View.INVISIBLE);
-
+        binding.bayInfo.setVisibility(View.INVISIBLE);
         calender = CalenderCalories.getInstance().getCaloriesMap();
         List<String> datesList = new ArrayList<>(calender.keySet());
         highLightCalendar(datesList);
@@ -59,17 +63,16 @@ public class CalendarActivity extends AppCompatActivity {
         binding.calendarView.setOnDayClickListener(eventDay -> {
             Calendar clickedDate = eventDay.getCalendar();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            String dateString = sdf.format(clickedDate.getTime());
+            currentDate = sdf.format(clickedDate.getTime());
 
-            DailyCalories dailyCalories = calender.get(dateString);
+            DailyCalories dailyCalories = calender.get(currentDate);
             if (dailyCalories != null) {
-                int dateBurnedCalories = dailyCalories.getCaloriesBurned();
-                int dateGainedCalories = dailyCalories.getCaloriesGained();
-                int maxBrnCal = (int)CaloriesCalculator.calculateCaloriesToBurnForHealth(User.getInstance());
-                int maxGaindCal = CaloriesCalculator.CalculateCaloriesIntake(User.getInstance());
+                dateBurnedCalories = dailyCalories.getCaloriesBurned();
+                dateGainedCalories = dailyCalories.getCaloriesGained();
+                maxBrnCal = (int)CaloriesCalculator.calculateCaloriesToBurnForHealth(User.getInstance());
+                maxGaindCal = CaloriesCalculator.CalculateCaloriesIntake(User.getInstance());
 
-                binding.frameFood.setVisibility(View.VISIBLE);
-                binding.frameActivity.setVisibility(View.VISIBLE);
+                binding.bayInfo.setVisibility(View.VISIBLE);
 
                 binding.burnedCalories.setText(String.valueOf(dateBurnedCalories));
                 binding.consumedCalories.setText(String.valueOf(dateGainedCalories));
@@ -77,9 +80,15 @@ public class CalendarActivity extends AppCompatActivity {
                 binding.dailyCaloriesActivity.setText(String.valueOf(maxBrnCal));
                 setProgressBarView(dateGainedCalories, dateBurnedCalories, maxGaindCal, maxBrnCal);
             } else {
-                binding.frameFood.setVisibility(View.INVISIBLE);
-                binding.frameActivity.setVisibility(View.INVISIBLE);
+                binding.bayInfo.setVisibility(View.INVISIBLE);
             }
+        });
+
+        binding.btnTotal.setOnClickListener( v -> {
+            DayCaloriesInfo dialog = DayCaloriesInfo.newInstance(
+                    currentDate,dateBurnedCalories,dateGainedCalories, maxBrnCal, maxGaindCal
+            );
+            dialog.show(getSupportFragmentManager(), "DayCaloriesInfo");
         });
     }
 

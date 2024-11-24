@@ -3,6 +3,7 @@ package com.example.befit.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -42,7 +43,7 @@ public class SearchFoodActivity extends AppCompatActivity
 
         binding = ActivitySearchFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.progressBar.setVisibility(View.INVISIBLE);
         commonFoodFragment = new CommonFoodListFragment();
         brandedFoodFragment = new BrandedFoodListFragment();
 
@@ -55,7 +56,7 @@ public class SearchFoodActivity extends AppCompatActivity
 
         binding.btnOk.setOnClickListener(v -> {
             String foodName = binding.foodNameInput.getText().toString().trim();
-            //binding.progressBar.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.VISIBLE);
             searchFood(foodName);
         });
 
@@ -96,7 +97,10 @@ public class SearchFoodActivity extends AppCompatActivity
     private void searchFood(String query) {
         foodService.fetchFoodList(query,
             commonFoods -> {
-                runOnUiThread(() -> commonFoodFragment.updateSearchResults(commonFoods));;
+                runOnUiThread(() -> {
+                    commonFoodFragment.updateSearchResults(commonFoods);
+                    binding.progressBar.setVisibility(View.INVISIBLE);
+                });
             },
             brandedFoods -> {
                 runOnUiThread(() -> brandedFoodFragment.updateSearchResults(brandedFoods));

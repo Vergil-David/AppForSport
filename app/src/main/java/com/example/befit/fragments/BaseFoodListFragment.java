@@ -3,6 +3,7 @@ package com.example.befit.fragments;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +34,6 @@ public abstract class BaseFoodListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ListView foodListView = view.findViewById(R.id.searchFoodList);
-
         adapter = new SearchFoodAdapter(getActivity(), foodList);
         foodListView.setAdapter(adapter);
 
