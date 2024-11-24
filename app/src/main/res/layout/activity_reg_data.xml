@@ -60,13 +60,13 @@
 
     <Spinner
         android:id="@+id/gender_spinner"
-        style="@style/EditTextStyle"
+        style="@style/SpinnerTextStyle"
         android:layout_width="305dp"
         android:layout_height="51dp"
         android:layout_marginTop="16dp"
         android:entries="@array/gender_options"
         android:padding="1dp"
-        android:paddingStart="20dp"
+        android:paddingStart="10dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

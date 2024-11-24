@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.befit.R;
-import com.example.befit.activities.RegDataActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -32,8 +31,6 @@ public class RegActivity extends AppCompatActivity {
     private EditText emailEdit;
     private EditText passwordEdit;
     private EditText nameEdit;
-    private EditText ageEdit;
-    private EditText weightEdit;
     private MaterialButton signupBtn;
     private MaterialButton logInBtn;
 

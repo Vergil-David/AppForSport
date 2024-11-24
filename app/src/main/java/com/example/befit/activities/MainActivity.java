@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading user data...");
         progressDialog.setCancelable(false);
@@ -148,5 +150,4 @@ public class MainActivity extends AppCompatActivity {
         int burnedProgress = (int) ((double) currentBurnedCalories / maxBurnedCalories * 100);
         binding.activityProgBarOval.setProgress(burnedProgress);
     }
-
 }

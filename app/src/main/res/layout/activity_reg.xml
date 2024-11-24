@@ -75,7 +75,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/button_background_2"
-
         android:text="Sing Up"
         android:textSize="24sp" />
 

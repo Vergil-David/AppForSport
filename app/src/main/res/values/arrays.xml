@@ -5,4 +5,10 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+    <string-array name="gender_options_settings">
+        <item>Change your gender</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

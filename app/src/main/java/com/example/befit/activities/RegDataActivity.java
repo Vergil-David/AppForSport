@@ -1,13 +1,20 @@
 package com.example.befit.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.befit.R;
 import com.example.befit.databinding.ActivityRegDataBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,7 +46,57 @@ public class RegDataActivity extends AppCompatActivity {
 
         initializeFirebase();
         checkCurrentUser();
+        setupSpinner();
         setupClickListeners();
+    }
+
+    private void setupSpinner() {
+        // Створюємо кастомний адаптер, який наслідується від ArrayAdapter
+        class CustomSpinnerAdapter extends ArrayAdapter<CharSequence> {
+            public CustomSpinnerAdapter(Context context, int resource, CharSequence[] objects) {
+                super(context, resource, objects);
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextColor(getResources().getColor(R.color.white));
+                return view;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+                textView.setTextColor(getResources().getColor(R.color.white));
+                return view;
+            }
+        }
+
+        // Створюємо адаптер з використанням нашого кастомного класу
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                getResources().getTextArray(R.array.gender_options)
+        );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.genderSpinner.setAdapter(adapter);
+
+        // Можна залишити OnItemSelectedListener для додаткової надійності
+        binding.genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (view != null) {
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.white));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void attemptStore() {
