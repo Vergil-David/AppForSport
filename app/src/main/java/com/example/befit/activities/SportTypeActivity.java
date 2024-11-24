@@ -3,6 +3,7 @@ package com.example.befit.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -41,7 +42,7 @@ public class SportTypeActivity extends AppCompatActivity {
 
         binding = ActivitySportTypeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.loadingBar.setVisibility(View.VISIBLE);
         database = FirebaseDatabase.getInstance("https://trainingapp-7f481-default-rtdb.europe-west1.firebasedatabase.app/");
         myRef = database.getReference("activities");
         loadActivitiesFromFireBase();
@@ -79,6 +80,7 @@ public class SportTypeActivity extends AppCompatActivity {
 
                                 // Додаємо активність до списку
                                 activities.add(sportActivity);
+                                binding.loadingBar.setVisibility(View.INVISIBLE);
                             }
                         }catch (Exception ex) {
                             Log.d("exept", ex.getMessage());

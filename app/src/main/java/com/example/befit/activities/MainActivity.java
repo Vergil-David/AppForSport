@@ -11,6 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.befit.DataBase.FireBaseManager;
+import com.example.befit.User.CalenderCalories;
 import com.example.befit.User.DailyCaloriesManager;
 import com.example.befit.User.User;
 import com.example.befit.databinding.ActivityMainBinding;
@@ -33,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading user data...");
         progressDialog.setCancelable(false);
@@ -42,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-
-        loadData();
 
         Log.d("My", "User email: " + auth.getCurrentUser().getEmail());
         Log.d("My", "User ID: " + auth.getUid());
@@ -64,7 +61,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, SettingActivity.class));
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
+
     private void loadData()  {
+
         if (auth.getCurrentUser() == null) {
             // Якщо користувач не увійшов, перенаправити на сторінку реєстрації
             progressDialog.dismiss();
@@ -89,20 +94,20 @@ public class MainActivity extends AppCompatActivity {
                             String age = document.getString("age");
                             String gender = document.getString("gender");
 
-                            int ageInt = Integer.parseInt(age);
-                            double weightDouble = Double.valueOf(weight);
-                            double heightDouble = Double.valueOf(height);
-                            Sex sex = gender.equals("Male") ? Sex.Male : Sex.Female;
-
-                            User.getInstance().initialize(name, auth.getUid(), ageInt, weightDouble, heightDouble, sex);
-
                             if (TextUtils.isEmpty(weight) || TextUtils.isEmpty(height) ||
                                     TextUtils.isEmpty(age) || TextUtils.isEmpty(gender)) {
                                 // Якщо поля відсутні, перенаправити на RegDataActivity
                                 redirectToRegDataActivity();
                             }
                             else {
+                                int ageInt = Integer.parseInt(age);
+                                double weightDouble = Double.valueOf(weight);
+                                double heightDouble = Double.valueOf(height);
+                                Sex sex = gender.equals("Male") ? Sex.Male : Sex.Female;
+
+                                User.getInstance().initialize(name, auth.getUid(), ageInt, weightDouble, heightDouble, sex);
                                 loadCaloriesData(userId);
+                                loadCalendarCaloriesData(userId);
                             }
                         } else {
                             // Якщо документа немає, створити базовий документ або перенаправити на RegDataActivity
@@ -120,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                     DailyCaloriesManager.getInstance().setCaloriesGained(onSucces.getCaloriesGained());
                     DailyCaloriesManager.getInstance().setCaloriesBurned(onSucces.getCaloriesBurned());
 
-                    // Тепер все завантажено, оновлюємо прогрес бари
                     progressDialog.dismiss();
                     setProgressBarView();
                 },
@@ -130,6 +134,12 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private void loadCalendarCaloriesData(String userId){
+        Log.d("MainActivity", "Loading calendar calories data for user: " + userId);
+        CalenderCalories.getInstance().LoadCalories(userId);
+        Log.d("MainActivity", "Loaded calendar calories data.");
+
+    }
     private void redirectToRegDataActivity() {
         progressDialog.dismiss(); // Закриваємо ProgressDialog
         startActivity(new Intent(this, RegDataActivity.class));
@@ -141,13 +151,23 @@ public class MainActivity extends AppCompatActivity {
         int currentCalories = DailyCaloriesManager.getInstance().getCaloriesGained();
         int maxCalories = CaloriesCalculator.CalculateCaloriesIntake(User.getInstance());
 
-        int progress = (int) ((double) currentCalories / maxCalories * 100);
+        int progress = getProgress(currentCalories,maxCalories);
         binding.foodProgBarOval.setProgress(progress);
 
         int maxBurnedCalories = (int)CaloriesCalculator.calculateCaloriesToBurnForHealth(User.getInstance());
         int currentBurnedCalories = DailyCaloriesManager.getInstance().getCaloriesBurned();
 
-        int burnedProgress = (int) ((double) currentBurnedCalories / maxBurnedCalories * 100);
+        int burnedProgress = getProgress(currentBurnedCalories,maxBurnedCalories);
         binding.activityProgBarOval.setProgress(burnedProgress);
     }
+
+    private int getProgress(int currentValue, int maxMalue) {
+        int result = 0;
+        if (currentValue >= maxMalue)
+            result = 100;
+        else
+            result = (int) ((double) currentValue / maxMalue * 100);
+        return result;
+    }
+
 }

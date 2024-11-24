@@ -23,8 +23,8 @@ public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText emailEdit;
     private EditText passwordEdit;
-    private MaterialButton signInButton;
-    private MaterialButton goToSignUpButton;
+    private android.widget.Button signInButton;
+    private android.widget.Button goToSignUpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

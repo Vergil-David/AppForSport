@@ -26,9 +26,10 @@ public class StatsActivity extends AppCompatActivity {
         int currentCalories = DailyCaloriesManager.getInstance().getCaloriesGained();
         int maxCalories = CaloriesCalculator.CalculateCaloriesIntake(User.getInstance());
 
-        binding.dailyIntakeCalories.setText(String.valueOf(maxCalories) + " kcal");
+        binding.dailyIntakeCalories.setText(String.valueOf(maxCalories));
         binding.consumedCalories.setText(String.valueOf(currentCalories));
-        int progress = (int) ((double) currentCalories / maxCalories * 100);
+
+        int progress = getProgress(currentCalories,maxCalories);
         binding.progressBarFood.setProgress(progress);
         binding.foodProgBarOval.setProgress(progress);
 
@@ -37,12 +38,22 @@ public class StatsActivity extends AppCompatActivity {
 
         binding.dailyCaloriesActivity.setText(String.valueOf(maxBurnedCalories));
         binding.burnedCalories.setText(String.valueOf(currentBurnedCalories));
-        int burnedProgress = (int) ((double) currentBurnedCalories / maxBurnedCalories * 100);
+
+        int burnedProgress = getProgress(currentBurnedCalories,maxBurnedCalories);
         binding.progressBarActivities.setProgress(burnedProgress);
         binding.activityProgBarOval.setProgress(burnedProgress);
 
         binding.buttonCalendar.setOnClickListener( v-> {
             startActivity(new Intent(this,CalendarActivity.class));
         });
+    }
+
+    private int getProgress(int currentValue, int maxMalue) {
+        int result = 0;
+        if (currentValue >= maxMalue)
+            result = 100;
+        else
+            result = (int) ((double) currentValue / maxMalue * 100);
+        return result;
     }
 }

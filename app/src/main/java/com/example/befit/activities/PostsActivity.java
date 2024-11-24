@@ -3,6 +3,7 @@ package com.example.befit.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ public class PostsActivity extends AppCompatActivity {
         binding = ActivityPostsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.loadingBar.setVisibility(View.VISIBLE);
         database = FirebaseDatabase.getInstance("https://trainingapp-7f481-default-rtdb.europe-west1.firebasedatabase.app/");
         myRef = database.getReference("post");
         loadPostsFromFireBase();
@@ -72,6 +74,7 @@ public class PostsActivity extends AppCompatActivity {
                             );
                         }
                         updateUI();
+                        binding.loadingBar.setVisibility(View.INVISIBLE);
                     }
                 }
                 @Override

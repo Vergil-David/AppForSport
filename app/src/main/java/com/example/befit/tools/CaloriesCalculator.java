@@ -25,7 +25,7 @@ public class CaloriesCalculator {
 
     public static double calculateBMR(double weight, double height, int age, boolean isMale) {
         double bmr = 10 * weight + 6.25 * height - 5 * age;
-        bmr += isMale ? 5 : -161; // Додати або відняти в залежності від статі
+        bmr += isMale ? 5 : -161;
         return bmr;
     }
 
